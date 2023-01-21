@@ -1,0 +1,16 @@
+### Get Order
+GET http://127.0.0.1:8080/order?id=1
+
+### Create Order
+POST http://127.0.0.1:8080/order
+Content-Type: application/json
+
+{
+  "value": "content"
+}
+
+### Update Order
+PUT http://127.0.0.1:8080/order
+
+### Delete Order
+DELETE http://127.0.0.1:8080/order
