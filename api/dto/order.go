@@ -18,3 +18,7 @@ type OrderUpdateReq struct {
 	ID          int64 `json:"id"`
 	OrderStatus int   `json:"order_status"`
 }
+
+type OrderCreateReply struct {
+	OrderID int64 `json:"order_id"`
+}

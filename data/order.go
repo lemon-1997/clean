@@ -14,7 +14,7 @@ func NewOrderRepo(data *Data) usecase.OrderRepo {
 	return &orderRepo{data: data}
 }
 
-func (r *orderRepo) CreateOrder(ctx context.Context, order *entity.Order) error {
+func (r *orderRepo) CreateOrder(ctx context.Context, order *entity.Order) (int64, error) {
 	//TODO implement me
 	panic("implement me")
 }

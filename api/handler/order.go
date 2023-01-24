@@ -59,10 +59,13 @@ func (h *Order) orderCreate(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
-	if err := h.order.CreateOrder(r.Context(), transCreateReqToOrder(&req), transCreateReqToPay(&req)); err != nil {
+	id, err := h.order.CreateOrder(r.Context(), transCreateReqToOrder(&req), transCreateReqToPay(&req))
+	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	io.WriteString(w, "ok")
+	reply := &dto.OrderCreateReply{OrderID: id}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(reply)
 }
 
 func (h *Order) orderUpdate(w http.ResponseWriter, r *http.Request) {

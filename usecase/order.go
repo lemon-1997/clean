@@ -19,16 +19,17 @@ func NewOrder(order OrderRepo, pay PayRepo, tm Transaction) *OrderUseCase {
 	}
 }
 
-func (uc *OrderUseCase) CreateOrder(ctx context.Context, order *entity.Order, pay *entity.Pay) error {
-	return uc.tm.InTx(ctx, func(ctx context.Context) error {
-		if err := uc.order.CreateOrder(ctx, order); err != nil {
+func (uc *OrderUseCase) CreateOrder(ctx context.Context, order *entity.Order, pay *entity.Pay) (orderID int64, err error) {
+	err = uc.tm.InTx(ctx, func(ctx context.Context) error {
+		if orderID, err = uc.order.CreateOrder(ctx, order); err != nil {
 			return err
 		}
-		if err := uc.pay.CreatePay(ctx, pay); err != nil {
+		if _, err = uc.pay.CreatePay(ctx, pay); err != nil {
 			return err
 		}
 		return nil
 	})
+	return
 }
 
 func (uc *OrderUseCase) GetOrder(ctx context.Context, id int64) (*entity.Order, error) {

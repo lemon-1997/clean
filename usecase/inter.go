@@ -10,13 +10,13 @@ type Transaction interface {
 }
 
 type OrderRepo interface {
-	CreateOrder(context.Context, *entity.Order) error
+	CreateOrder(context.Context, *entity.Order) (int64, error)
 	FindOrderByID(context.Context, int64) (*entity.Order, error)
 	UpdateOrderByID(context.Context, *entity.Order, int64) error
 	DeleteOrderByID(context.Context, int64) error
 }
 
 type PayRepo interface {
-	CreatePay(context.Context, *entity.Pay) error
+	CreatePay(context.Context, *entity.Pay) (int64, error)
 	DeletePayByID(context.Context, int64) error
 }

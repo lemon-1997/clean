@@ -14,7 +14,7 @@ func NewPayRepo(data *Data) usecase.PayRepo {
 	return &payRepo{data: data}
 }
 
-func (payRepo) CreatePay(ctx context.Context, pay *entity.Pay) error {
+func (payRepo) CreatePay(ctx context.Context, pay *entity.Pay) (int64, error) {
 	//TODO implement me
 	panic("implement me")
 }
